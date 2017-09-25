@@ -33,6 +33,10 @@ req.http.ua_patch
 
 ## Development
 
+This works by parsing the ua-parser ruleset and generating VCL which
+follows its matching rules. It also includes a full test suite from
+ua-parser.
+
 You should have access to the Fastly GitHub organization. Then run:
 
 ```bash
@@ -53,6 +57,7 @@ Send a pull request, but don't forget to:
 $ yarn eslint
 $ yarn pretty
 $ yarn generate
+$ yarn test
 ```
 
 ## License
