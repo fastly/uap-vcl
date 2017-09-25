@@ -6,7 +6,7 @@
 the user agent family, major version, minor version and patch version.
 
 Why do this in VCL? This module follows the same rules as
-[http://www.uaparser.org/](ua-parser), an open-source and
+[ua-parser](http://www.uaparser.org/), an open-source and
 community-driven, regexp-based user-agent parser. It has been ported to
 many different programming languages all of which share the same parser.
 
