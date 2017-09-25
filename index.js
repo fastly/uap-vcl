@@ -1,5 +1,5 @@
 const yaml = require('js-yaml');
-const fs   = require('fs');
+const fs = require('fs');
 
 // Get document, or throw exception on error
 let regexes;
@@ -9,7 +9,7 @@ try {
   console.log(e);
 }
 
-let vcl = "# uap-vcl\n";
+let vcl = '# uap-vcl\n';
 for (let i = 0; i < regexes.user_agent_parsers.length; i++) {
   const part = regexes.user_agent_parsers[i];
   if (i === 0) {
@@ -56,5 +56,5 @@ if (!req.http.ua_minor) {
 }
 if (!req.http.ua_patch) {
   set req.http.ua_patch = "null";
-}\n`
+}\n`;
 console.log(vcl);

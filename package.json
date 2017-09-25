@@ -9,6 +9,7 @@
     "eslint": "./node_modules/eslint/bin/eslint.js index.js test/simple.js",
     "fetch": "wget -N https://raw.githubusercontent.com/ua-parser/uap-core/master/regexes.yaml https://raw.githubusercontent.com/ua-parser/uap-core/master/tests/test_ua.yaml",
     "generate": "node index.js > uap.vcl",
+    "pretty": "prettier --single-quote --write \"*.js\"",
     "test": "mocha"
   },
   "devDependencies": {
@@ -16,6 +17,7 @@
     "chai-http": "^3.0.0",
     "eslint": "^4.7.2",
     "js-yaml": "^3.10.0",
-    "mocha": "^3.5.3"
+    "mocha": "^3.5.3",
+    "prettier": "^1.7.0"
   }
 }
