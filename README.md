@@ -2,7 +2,7 @@
 
 ## Description
 
-`uap-vcl` is a VCL module which parses a User-Agent header and returns
+`uap-vcl` is a VCL module which parses a User-Agent string. It returns
 the user agent family, major version, minor version and patch version.
 
 Why do this in VCL? This module follows the same rules as
