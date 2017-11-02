@@ -31,6 +31,15 @@ req.http.ua_minor
 req.http.ua_patch
 ```
 
+For example, it might return the following:
+
+```vcl
+ua_family: "Chrome"
+ua_major:  "61"
+ua_minor:  "0"
+ua_patch:  "3163"
+```
+
 ## Development
 
 This works by parsing the ua-parser ruleset and generating VCL which
