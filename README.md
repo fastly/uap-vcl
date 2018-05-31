@@ -51,9 +51,9 @@ You should have access to the Fastly GitHub organization. Then run:
 ```bash
 $ git clone git@github.com:fastly/uap-vcl.git
 Cloning into 'uap-vcl'...
-$ yarn install
-$ yarn fetch
-$ yarn generate
+$ npm install
+$ npm run fetch
+$ npm run generate
 ```
 
 This generates [uap.vcl](uap.vcl).
@@ -63,10 +63,10 @@ This generates [uap.vcl](uap.vcl).
 Send a pull request, but don't forget to:
 
 ```bash
-$ yarn eslint
-$ yarn pretty
-$ yarn generate
-$ yarn test
+$ npm run eslint
+$ npm run pretty
+$ npm run generate
+$ npm run test
 ```
 
 ## License
