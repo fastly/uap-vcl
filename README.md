@@ -35,9 +35,18 @@ For example, it might return the following:
 
 ```vcl
 ua_family: "Chrome"
-ua_major:  "61"
+ua_major:  "67"
 ua_minor:  "0"
-ua_patch:  "3163"
+ua_patch:  "3396"
+```
+
+Not all variables are set for every user agent. For example, Firefox might show:
+
+```vcl
+ua_family: "Firefox"
+ua_major:  "60"
+ua_minor:  "0"
+ua_patch:  "null"
 ```
 
 ## Development
