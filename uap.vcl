@@ -1,5 +1,65 @@
 # uap-vcl
-if (req.http.user-agent ~ "(CFNetwork)(?:/(\d+)\.(\d+)\.?(\d+)?)?") {
+if (req.http.user-agent ~ "(ESPN)[%20| ]+Radio/(\d+)\.(\d+)\.(\d+) CFNetwork") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(Antenna)/(\d+) CFNetwork") {
+  set req.http.ua_family = "AntennaPod";
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(TopPodcasts)Pro/(\d+) CFNetwork") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(MusicDownloader)Lite/(\d+)\.(\d+)\.(\d+) CFNetwork") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "^(.*)-iPad/(\d+)\.?(\d+)?.?(\d+)?.?(\d+)? CFNetwork") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "^(.*)-iPhone/(\d+)\.?(\d+)?.?(\d+)?.?(\d+)? CFNetwork") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "^(.*)/(\d+)\.?(\d+)?.?(\d+)?.?(\d+)? CFNetwork") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(espn\.go)") {
+  set req.http.ua_family = "ESPN";
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(espnradio\.com)") {
+  set req.http.ua_family = "ESPN";
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "ESPN APP$") {
+  set req.http.ua_family = "ESPN";
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(audioboom\.com)") {
+  set req.http.ua_family = "AudioBoom";
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ " (Rivo) RHYTHM") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(CFNetwork)(?:/(\d+)\.(\d+)\.?(\d+)?)?") {
   set req.http.ua_family = "CFNetwork";
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
@@ -16,6 +76,11 @@ if (req.http.user-agent ~ "(CFNetwork)(?:/(\d+)\.(\d+)\.?(\d+)?)?") {
   set req.http.ua_patch = re.group.4;
 } else if (req.http.user-agent ~ "(NewRelicPinger)/(\d+)\.(\d+)") {
   set req.http.ua_family = "NewRelicPingerBot";
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(Tableau)/(\d+)\.(\d+)") {
+  set req.http.ua_family = "Tableau";
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
   set req.http.ua_patch = re.group.4;
@@ -59,7 +124,12 @@ if (req.http.user-agent ~ "(CFNetwork)(?:/(\d+)\.(\d+)\.?(\d+)?)?") {
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
   set req.http.ua_patch = re.group.4;
-} else if (req.http.user-agent ~ "(Google-HTTP-Java-Client|Apache-HttpClient|http%20client|Python-urllib|HttpMonitor|TLSProber|WinHTTP|JNLP|okhttp)(?:[ /](\d+)(?:\.(\d+)(?:\.(\d+))?)?)?") {
+} else if (req.http.user-agent ~ "(DAVdroid)/(\d+)\.(\d+)(?:\.(\d+))?") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(Google-HTTP-Java-Client|Apache-HttpClient|Go-http-client|scalaj-http|http%20client|Python-urllib|HttpMonitor|TLSProber|WinHTTP|JNLP|okhttp|aihttp|reqwest)(?:[ /](\d+)(?:\.(\d+)(?:\.(\d+))?)?)?") {
   set req.http.ua_family = re.group.1;
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
@@ -69,7 +139,12 @@ if (req.http.user-agent ~ "(CFNetwork)(?:/(\d+)\.(\d+)\.?(\d+)?)?") {
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
   set req.http.ua_patch = re.group.4;
-} else if (req.http.user-agent ~ "(1470\.net crawler|50\.nu|8bo Crawler Bot|Aboundex|Accoona-[A-z]+-Agent|AdsBot-Google(?:-[a-z]+)?|altavista|AppEngine-Google|archive.*?\.org_bot|archiver|Ask Jeeves|[Bb]ai[Dd]u[Ss]pider(?:-[A-Za-z]+)*|bingbot|BingPreview|blitzbot|BlogBridge|Bloglovin|BoardReader(?: [A-Za-z]+)*|boitho.com-dc|BotSeer|\b\w*favicon\w*\b|\bYeti(?:-[a-z]+)?|Catchpoint(?: bot)?|[Cc]harlotte|Checklinks|clumboot|Comodo HTTP\(S\) Crawler|Comodo-Webinspector-Crawler|ConveraCrawler|CRAWL-E|CrawlConvera|Daumoa(?:-feedfetcher)?|Feed Seeker Bot|Feedbin|findlinks|Flamingo_SearchEngine|FollowSite Bot|furlbot|Genieo|gigabot|GomezAgent|gonzo1|(?:[a-zA-Z]+-)?Googlebot(?:-[a-zA-Z]+)?|Google SketchUp|grub-client|gsa-crawler|heritrix|HiddenMarket|holmes|HooWWWer|htdig|ia_archiver|ICC-Crawler|Icarus6j|ichiro(?:/mobile)?|IconSurf|IlTrovatore(?:-Setaccio)?|InfuzApp|Innovazion Crawler|InternetArchive|IP2[a-z]+Bot|jbot\b|KaloogaBot|Kraken|Kurzor|larbin|LEIA|LesnikBot|Linguee Bot|LinkAider|LinkedInBot|Lite Bot|Llaut|lycos|Mail\.RU_Bot|masscan|masidani_bot|Mediapartners-Google|Microsoft .*? Bot|mogimogi|mozDex|MJ12bot|msnbot(?:-media *)?|msrbot|Mtps Feed Aggregation System|netresearch|Netvibes|NewsGator[^/]*|^NING|Nutch[^/]*|Nymesis|ObjectsSearch|Orbiter|OOZBOT|PagePeeker|PagesInventory|PaxleFramework|Peeplo Screenshot Bot|PlantyNet_WebRobot|Pompos|Qwantify|Read%20Later|Reaper|RedCarpet|Retreiver|Riddler|Rival IQ|scooter|Scrapy|Scrubby|searchsight|seekbot|semanticdiscovery|Simpy|SimplePie|SEOstats|SimpleRSS|SiteCon|Slackbot-LinkExpanding|Slack-ImgProxy|Slurp|snappy|Speedy Spider|Squrl Java|Stringer|TheUsefulbot|ThumbShotsBot|Thumbshots\.ru|Tiny Tiny RSS|TwitterBot|WhatsApp|URL2PNG|Vagabondo|VoilaBot|^vortex|Votay bot|^voyager|WASALive.Bot|Web-sniffer|WebThumb|WeSEE:[A-z]+|WhatWeb|WIRE|WordPress|Wotbox|www\.almaden\.ibm\.com|Xenu(?:.s)? Link Sleuth|Xerka [A-z]+Bot|yacy(?:bot)?|Yahoo[a-z]*Seeker|Yahoo! Slurp|Yandex\w+|YodaoBot(?:-[A-z]+)?|YottaaMonitor|Yowedo|^Zao|^Zao-Crawler|ZeBot_www\.ze\.bz|ZooShot|ZyBorg)(?:[ /]v?(\d+)(?:\.(\d+)(?:\.(\d+))?)?)?") {
+} else if (req.http.user-agent ~ "(1470\.net crawler|50\.nu|8bo Crawler Bot|Aboundex|Accoona-[A-z]+-Agent|AdsBot-Google(?:-[a-z]+)?|altavista|AppEngine-Google|archive.*?\.org_bot|archiver|Ask Jeeves|[Bb]ai[Dd]u[Ss]pider(?:-[A-Za-z]+)*|bingbot|BingPreview|blitzbot|BlogBridge|Bloglovin|BoardReader(?: [A-Za-z]+)*|boitho.com-dc|BotSeer|BUbiNG|\b\w*favicon\w*\b|\bYeti(?:-[a-z]+)?|Catchpoint(?: bot)?|[Cc]harlotte|Checklinks|clumboot|Comodo HTTP\(S\) Crawler|Comodo-Webinspector-Crawler|ConveraCrawler|CRAWL-E|CrawlConvera|Daumoa(?:-feedfetcher)?|Feed Seeker Bot|Feedbin|findlinks|Flamingo_SearchEngine|FollowSite Bot|furlbot|Genieo|gigabot|GomezAgent|gonzo1|(?:[a-zA-Z]+-)?Googlebot(?:-[a-zA-Z]+)?|Google SketchUp|grub-client|gsa-crawler|heritrix|HiddenMarket|holmes|HooWWWer|htdig|ia_archiver|ICC-Crawler|Icarus6j|ichiro(?:/mobile)?|IconSurf|IlTrovatore(?:-Setaccio)?|InfuzApp|Innovazion Crawler|InternetArchive|IP2[a-z]+Bot|jbot\b|KaloogaBot|Kraken|Kurzor|larbin|LEIA|LesnikBot|Linguee Bot|LinkAider|LinkedInBot|Lite Bot|Llaut|lycos|Mail\.RU_Bot|masscan|masidani_bot|Mediapartners-Google|Microsoft .*? Bot|mogimogi|mozDex|MJ12bot|msnbot(?:-media *)?|msrbot|Mtps Feed Aggregation System|netresearch|Netvibes|NewsGator[^/]*|^NING|Nutch[^/]*|Nymesis|ObjectsSearch|Orbiter|OOZBOT|PagePeeker|PagesInventory|PaxleFramework|Peeplo Screenshot Bot|PlantyNet_WebRobot|Pompos|Qwantify|Read%20Later|Reaper|RedCarpet|Retreiver|Riddler|Rival IQ|scooter|Scrapy|Scrubby|searchsight|seekbot|semanticdiscovery|SemrushBot|Simpy|SimplePie|SEOstats|SimpleRSS|SiteCon|Slackbot-LinkExpanding|Slack-ImgProxy|Slurp|snappy|Speedy Spider|Squrl Java|Stringer|TheUsefulbot|ThumbShotsBot|Thumbshots\.ru|Tiny Tiny RSS|TwitterBot|WhatsApp|URL2PNG|Vagabondo|VoilaBot|^vortex|Votay bot|^voyager|WASALive.Bot|Web-sniffer|WebThumb|WeSEE:[A-z]+|WhatWeb|WIRE|WordPress|Wotbox|www\.almaden\.ibm\.com|Xenu(?:.s)? Link Sleuth|Xerka [A-z]+Bot|yacy(?:bot)?|Yahoo[a-z]*Seeker|Yahoo! Slurp|Yandex\w+|YodaoBot(?:-[A-z]+)?|YottaaMonitor|Yowedo|^Zao|^Zao-Crawler|ZeBot_www\.ze\.bz|ZooShot|ZyBorg)(?:[ /]v?(\d+)(?:\.(\d+)(?:\.(\d+))?)?)?") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "\b(Boto3?|JetS3t|aws-(?:cli|sdk-(?:cpp|go|java|nodejs|ruby2?))|s3fs)/(\d+)\.(\d+)(?:\.(\d+))?") {
   set req.http.ua_family = re.group.1;
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
@@ -94,7 +169,7 @@ if (req.http.user-agent ~ "(CFNetwork)(?:/(\d+)\.(\d+)\.?(\d+)?)?") {
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
   set req.http.ua_patch = re.group.4;
-} else if (req.http.user-agent ~ "(Chimera|SeaMonkey|Camino)/(\d+)\.(\d+)\.?([ab]?\d+[a-z]*)?") {
+} else if (req.http.user-agent ~ "(Chimera|SeaMonkey|Camino|Waterfox)/(\d+)\.(\d+)\.?([ab]?\d+[a-z]*)?") {
   set req.http.ua_family = re.group.1;
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
@@ -111,6 +186,31 @@ if (req.http.user-agent ~ "(CFNetwork)(?:/(\d+)\.(\d+)\.?(\d+)?)?") {
   set req.http.ua_patch = re.group.4;
 } else if (req.http.user-agent ~ "(Pinterest)(?: for Android(?: Tablet)?)?/(\d+)(?:\.(\d+)(?:\.(\d+))?)?") {
   set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "Mozilla.*Mobile.*(Instagram).(\d+)\.(\d+)\.(\d+)") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "Mozilla.*Mobile.*(Flipboard).(\d+)\.(\d+)\.(\d+)") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "Mozilla.*Mobile.*(Flipboard-Briefing).(\d+)\.(\d+)\.(\d+)") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "Mozilla.*Mobile.*(Onefootball)\/Android.(\d+)\.(\d+)\.(\d+)") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(Firefox)/(\d+)\.(\d+) Basilisk/(\d+)") {
+  set req.http.ua_family = "Basilisk";
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
   set req.http.ua_patch = re.group.4;
@@ -395,7 +495,7 @@ if (req.http.user-agent ~ "(CFNetwork)(?:/(\d+)\.(\d+)\.?(\d+)?)?") {
   set req.http.ua_minor = re.group.3;
   set req.http.ua_patch = re.group.4;
 } else if (req.http.user-agent ~ "(SznProhlizec)/(\d+)\.(\d+)(?:\.(\d+))?") {
-  set req.http.ua_family = "Seznam.cz";
+  set req.http.ua_family = "Seznam prohl%u00ED%u017Ee%u010D";
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
   set req.http.ua_patch = re.group.4;
@@ -504,6 +604,16 @@ if (req.http.user-agent ~ "(CFNetwork)(?:/(\d+)\.(\d+)\.?(\d+)?)?") {
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
   set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(PodCruncher|Downcast)[ /]?(\d+)\.?(\d+)?\.?(\d+)?\.?(\d+)?") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ " (BoxNotes)/(\d+)\.(\d+)\.(\d+)") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
 } else if (req.http.user-agent ~ "(Slack_SSB)/(\d+)\.(\d+)\.(\d+)") {
   set req.http.ua_family = "Slack Desktop Client";
   set req.http.ua_major = re.group.2;
@@ -514,7 +624,7 @@ if (req.http.user-agent ~ "(CFNetwork)(?:/(\d+)\.(\d+)\.?(\d+)?)?") {
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
   set req.http.ua_patch = re.group.4;
-} else if (req.http.user-agent ~ "\b(MobileIron|FireWeb|Jasmine|ANTGalio|Midori|Fresco|Lobo|PaleMoon|Maxthon|Lynx|OmniWeb|Dillo|Camino|Demeter|Fluid|Fennec|Epiphany|Shiira|Sunrise|Spotify|Flock|Netscape|Lunascape|WebPilot|NetFront|Netfront|Konqueror|SeaMonkey|Kazehakase|Vienna|Iceape|Iceweasel|IceWeasel|Iron|K-Meleon|Sleipnir|Galeon|GranParadiso|Opera Mini|iCab|NetNewsWire|ThunderBrowse|Iris|UP\.Browser|Bunjalloo|Google Earth|Raven for Mac|Openwave|MacOutlook|Electron)/(\d+)\.(\d+)\.(\d+)") {
+} else if (req.http.user-agent ~ "\b(MobileIron|FireWeb|Jasmine|ANTGalio|Midori|Fresco|Lobo|PaleMoon|Maxthon|Lynx|OmniWeb|Dillo|Camino|Demeter|Fluid|Fennec|Epiphany|Shiira|Sunrise|Spotify|Flock|Netscape|Lunascape|WebPilot|NetFront|Netfront|Konqueror|SeaMonkey|Kazehakase|Vienna|Iceape|Iceweasel|IceWeasel|Iron|K-Meleon|Sleipnir|Galeon|GranParadiso|Opera Mini|iCab|NetNewsWire|ThunderBrowse|Iris|UP\.Browser|Bunjalloo|Google Earth|Raven for Mac|Openwave|MacOutlook|Electron|OktaMobile)/(\d+)\.(\d+)\.(\d+)") {
   set req.http.ua_family = re.group.1;
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
@@ -594,8 +704,18 @@ if (req.http.user-agent ~ "(CFNetwork)(?:/(\d+)\.(\d+)\.?(\d+)?)?") {
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
   set req.http.ua_patch = re.group.4;
-} else if (req.http.user-agent ~ "HeadlessChrome") {
-  set req.http.ua_family = "HeadlessChrome";
+} else if (req.http.user-agent ~ "(HeadlessChrome)(?:/(\d+)\.(\d+)\.(\d+))?") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(Evolution)/(\d+)\.(\d+)\.(\d+\.\d+)") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(RCM CardDAV plugin)/(\d+)\.(\d+)\.(\d+(?:-dev)?)") {
+  set req.http.ua_family = re.group.1;
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
   set req.http.ua_patch = re.group.4;
@@ -615,6 +735,196 @@ if (req.http.user-agent ~ "(CFNetwork)(?:/(\d+)\.(\d+)\.?(\d+)?)?") {
   set req.http.ua_minor = re.group.3;
   set req.http.ua_patch = re.group.4;
 } else if (req.http.user-agent ~ "(BacaBerita App)\/(\d+)\.(\d+)\.(\d+)") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "^(bPod|Pocket Casts|Player FM)$") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "^(AlexaMediaPlayer|VLC)/(\d+)\.(\d+)\.([^.\s]+)") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "^(AntennaPod|WMPlayer|Zune|Podkicker|Radio|ExoPlayerDemo|Overcast|PocketTunes|NSPlayer|okhttp|DoggCatcher|QuickNews|QuickTime|Peapod|Podcasts|GoldenPod|VLC|Spotify|Miro|MediaGo|Juice|iPodder|gPodder|Banshee)/(\d+)\.(\d+)\.?(\d+)?\.?(\d+)?") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "^(Peapod|Liferea)/([^.\s]+)\.([^.\s]+)?\.?([^.\s]+)?") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "^(bPod|Player FM) BMID/(\S+)") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "^(Podcast ?Addict)/v(\d+) ") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "^(Podcast ?Addict) ") {
+  set req.http.ua_family = "PodcastAddict";
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(Replay) AV") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(VOX) Music Player") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(CITA) RSS Aggregator/(\d+)\.(\d+)") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(Pocket Casts)$") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(Player FM)$") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(LG Player|Doppler|FancyMusic|MediaMonkey|Clementine) (\d+)\.(\d+)\.?([^.\s]+)?\.?([^.\s]+)?") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(philpodder)/(\d+)\.(\d+)\.?([^.\s]+)?\.?([^.\s]+)?") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(Player FM|Pocket Casts|DoggCatcher|Spotify|MediaMonkey|MediaGo|BashPodder)") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(QuickTime)\.(\d+)\.(\d+)\.(\d+)") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(Kinoma)(\d+)") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(Fancy) Cloud Music (\d+)\.(\d+)") {
+  set req.http.ua_family = "FancyMusic";
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "EspnDownloadManager") {
+  set req.http.ua_family = "ESPN";
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(ESPN) Radio (\d+)\.(\d+)\.?(\d+)? ?(?:rv:(\d+))? ") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(podracer|jPodder) v ?(\d+)\.(\d+)\.?(\d+)?") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(ZDM)/(\d+)\.(\d+)[; ]?") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(Zune|BeyondPod) (\d+)\.?(\d+)?[\);]") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(WMPlayer)/(\d+)\.(\d+)\.(\d+)\.(\d+)") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "^(Lavf)") {
+  set req.http.ua_family = "WMPlayer";
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "^(RSSRadio)[ /]?(\d+)?") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(RSS_Radio) (\d+)\.(\d+)") {
+  set req.http.ua_family = "RSSRadio";
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(Podkicker) \S+/(\d+)\.(\d+)\.(\d+)") {
+  set req.http.ua_family = "Podkicker";
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "^(HTC) Streaming Player \S+ / \S+ / \S+ / (\d+)\.(\d+)\.?(\d+)?") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "^(Stitcher)/iOS") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "^(Stitcher)/Android") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "^(VLC) .*version (\d+)\.(\d+)\.(\d+)") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ " (VLC) for") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(vlc)/(\d+)\.(\d+)\.(\d+)") {
+  set req.http.ua_family = "VLC";
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "^(foobar)\S+/([^.\s]+)\.([^.\s]+)?\.?([^.\s]+)?") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "^(Clementine)\S+ ([^.\s]+)\.([^.\s]+)?\.?([^.\s]+)?") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(amarok)/([^.\s]+)\.([^.\s]+)?\.?([^.\s]+)?") {
+  set req.http.ua_family = "Amarok";
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(Custom)-Feed Reader") {
   set req.http.ua_family = re.group.1;
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
@@ -661,6 +971,21 @@ if (req.http.user-agent ~ "(CFNetwork)(?:/(\d+)\.(\d+)\.?(\d+)?)?") {
   set req.http.ua_patch = re.group.4;
 } else if (req.http.user-agent ~ "(MSIE) (\d+)\.(\d+).*XBLWP7") {
   set req.http.ua_family = "IE Large Screen";
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(Nextcloud)") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(mirall)/(\d+)\.(\d+)\.(\d+)") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(ownCloud-android)/(\d+)\.(\d+)\.(\d+)") {
+  set req.http.ua_family = "Owncloud";
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
   set req.http.ua_patch = re.group.4;
@@ -719,6 +1044,11 @@ if (req.http.user-agent ~ "(CFNetwork)(?:/(\d+)\.(\d+)\.?(\d+)?)?") {
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
   set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(iPod|iPod touch|iPhone|iPad);.*CPU.*OS[ +](\d+)_(\d+)(?:_(\d+))?.* AppleNews\/\d+\.\d+\.\d+?") {
+  set req.http.ua_family = "Mobile Safari UI/WKWebView";
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
 } else if (req.http.user-agent ~ "(iPod|iPhone|iPad).+Version/(\d+)\.(\d+)(?:\.(\d+))?") {
   set req.http.ua_family = "Mobile Safari UI/WKWebView";
   set req.http.ua_major = re.group.2;
@@ -741,6 +1071,11 @@ if (req.http.user-agent ~ "(CFNetwork)(?:/(\d+)\.(\d+)\.?(\d+)?)?") {
   set req.http.ua_patch = re.group.4;
 } else if (req.http.user-agent ~ "(iPod|iPhone|iPad)") {
   set req.http.ua_family = "Mobile Safari UI/WKWebView";
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(Outlook-iOS)/\d+\.\d+\.prod\.iphone \((\d+)\.(\d+)\.(\d+)\)") {
+  set req.http.ua_family = re.group.1;
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
   set req.http.ua_patch = re.group.4;
@@ -914,9 +1249,24 @@ if (req.http.user-agent ~ "(CFNetwork)(?:/(\d+)\.(\d+)\.?(\d+)?)?") {
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
   set req.http.ua_patch = re.group.4;
-} else if (req.http.user-agent ~ "Trident(.*)rv.(\d+)\.(\d+)") {
+} else if (req.http.user-agent ~ "(Trident)/(7|8)\.(0)") {
   set req.http.ua_family = "IE";
-  set req.http.ua_major = re.group.2;
+  set req.http.ua_major = "11";
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(Trident)/(6)\.(0)") {
+  set req.http.ua_family = "IE";
+  set req.http.ua_major = "10";
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(Trident)/(5)\.(0)") {
+  set req.http.ua_family = "IE";
+  set req.http.ua_major = "9";
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "(Trident)/(4)\.(0)") {
+  set req.http.ua_family = "IE";
+  set req.http.ua_major = "8";
   set req.http.ua_minor = re.group.3;
   set req.http.ua_patch = re.group.4;
 } else if (req.http.user-agent ~ "(Espial)/(\d+)(?:\.(\d+))?(?:\.(\d+))?") {
@@ -949,12 +1299,27 @@ if (req.http.user-agent ~ "(CFNetwork)(?:/(\d+)\.(\d+)\.?(\d+)?)?") {
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
   set req.http.ua_patch = re.group.4;
-} else if (req.http.user-agent ~ "\b(Windows-Update-Agent|Microsoft-CryptoAPI|SophosUpdateManager|SophosAgent|Debian APT-HTTP|Ubuntu APT-HTTP|libcurl-agent|libwww-perl|urlgrabber|curl|Wget|OpenBSD ftp|jupdate)(?:[ /](\d+)(?:\.(\d+)(?:\.(\d+))?)?)?") {
+} else if (req.http.user-agent ~ "\b(Windows-Update-Agent|Microsoft-CryptoAPI|SophosUpdateManager|SophosAgent|Debian APT-HTTP|Ubuntu APT-HTTP|libcurl-agent|libwww-perl|urlgrabber|curl|PycURL|Wget|aria2|Axel|OpenBSD ftp|lftp|jupdate)(?:[ /](\d+)(?:\.(\d+)(?:\.(\d+))?)?)?") {
   set req.http.ua_family = re.group.1;
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
   set req.http.ua_patch = re.group.4;
 } else if (req.http.user-agent ~ "(Java)[/ ]{0,1}\d+\.(\d+)\.(\d+)[_-]*([a-zA-Z0-9]+)*") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "^(Cyberduck)/(\d+)\.(\d+)\.(\d+)(?:\.\d+)?") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "^(S3 Browser) (\d+)-(\d+)-(\d+)(?:\s*http://s3browser\.com)?") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "^(rclone)/v(\d+)\.(\d+)") {
   set req.http.ua_family = re.group.1;
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
@@ -966,6 +1331,11 @@ if (req.http.user-agent ~ "(CFNetwork)(?:/(\d+)\.(\d+)\.?(\d+)?)?") {
   set req.http.ua_patch = re.group.4;
 } else if (req.http.user-agent ~ "(Kurio)\/(\d+)\.(\d+)\.(\d+)") {
   set req.http.ua_family = "Kurio App";
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
+  set req.http.ua_patch = re.group.4;
+} else if (req.http.user-agent ~ "^(Box(?: Sync)?)/(\d+)\.(\d+)\.(\d+)") {
+  set req.http.ua_family = re.group.1;
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
   set req.http.ua_patch = re.group.4;
