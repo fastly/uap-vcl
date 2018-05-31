@@ -47,5 +47,5 @@ try {
         })).timeout(5000);
   });
 } catch (e) {
-  console.log(e);
+  console.error(e);
 }

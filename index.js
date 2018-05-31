@@ -6,7 +6,7 @@ let regexes;
 try {
   regexes = yaml.safeLoad(fs.readFileSync('regexes.yaml', 'utf8'));
 } catch (e) {
-  console.log(e);
+  console.error(e);
 }
 
 /**
