@@ -5,7 +5,7 @@ const fs = require('fs');
 const yaml = require('js-yaml');
 chai.use(chaiHttp);
 
-const uri = process.env.URI || 'https://uap-vcl.global.ssl.fastly.net';
+const uri = process.env.URI || 'https://uap-vcl.freetls.fastly.net';
 
 it('receives an HTML response from /', () =>
   chai

@@ -15,7 +15,7 @@ this module provides an easy migration path to moving User-Agent-based
 logic to VCL.
 
 You can view the output for your current browser at:
-https://uap-vcl.global.ssl.fastly.net/
+https://uap-vcl.freetls.fastly.net/
 
 ## Installation
 
