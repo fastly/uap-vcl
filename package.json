@@ -10,7 +10,7 @@
     "fetch": "wget -N https://raw.githubusercontent.com/ua-parser/uap-core/master/regexes.yaml https://raw.githubusercontent.com/ua-parser/uap-core/master/tests/test_ua.yaml",
     "generate": "node index.js > uap.vcl",
     "pretty": "prettier --single-quote --write index.js test/simple.js",
-    "test": "mocha"
+    "test": "mocha --bail"
   },
   "devDependencies": {
     "chai": "^4.1.2",
