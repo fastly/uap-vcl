@@ -44,6 +44,7 @@ for (let i = 0; i < regexes.user_agent_parsers.length; i++) {
   } else {
     vcl += `} else if `;
   }
+  const groups = new RegExp(part.regex.toString() + '|').exec('').length - 1;
   vcl += `(req.http.user-agent ~ "${part.regex.replace('%', '%25')}") {\n`;
   if (part.family_replacement) {
     const m = part.family_replacement.match(/^(.*)\$1(.*)/);
@@ -61,21 +62,21 @@ for (let i = 0; i < regexes.user_agent_parsers.length; i++) {
     vcl += `  set req.http.ua_major = "${escapeNonAsciiCharacters(
       part.v1_replacement
     )}";\n`;
-  } else {
+  } else if (groups >= 2) {
     vcl += `  set req.http.ua_major = re.group.2;\n`;
   }
   if (part.v2_replacement) {
     vcl += `  set req.http.ua_minor= "${escapeNonAsciiCharacters(
       part.v2_replacement
     )}";\n`;
-  } else {
+  } else if (groups >= 3) {
     vcl += `  set req.http.ua_minor = re.group.3;\n`;
   }
   if (part.v3_replacement) {
     vcl += `  set req.http.ua_patch = "${escapeNonAsciiCharacters(
       part.v3_replacement
     )}";\n`;
-  } else {
+  } else if (groups >= 4) {
     vcl += `  set req.http.ua_patch = re.group.4;\n`;
   }
 }
