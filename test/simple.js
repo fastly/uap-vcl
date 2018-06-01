@@ -17,36 +17,46 @@ it('receives an HTML response from /', () =>
       expect(res.text).to.include('ua-parser in VCL');
     }));
 
+const filenames = [
+  'uap-core/test_resources/firefox_user_agent_strings.yaml',
+  'uap-core/test_resources/opera_mini_user_agent_strings.yaml',
+  'uap-core/test_resources/pgts_browser_list.yaml',
+  'uap-core/test_resources/podcasting_user_agent_strings.yaml',
+  'uap-core/tests/test_ua.yaml'
+];
+
 try {
-  const doc = yaml.safeLoad(
-    fs.readFileSync(require.resolve('uap-core/tests/test_ua.yaml'), 'utf8')
-  );
-  doc['test_cases'].forEach(test => {
-    it(`receives a response for ${test.user_agent_string} to be ${
-      test.family
-    } / ${test.major}`, () =>
-      chai
-        .request(uri)
-        .get('/')
-        .set('User-Agent', test.user_agent_string)
-        .then(res => {
-          //console.log(res.text);
-          expect(res).to.have.status(200);
-          expect(res).to.be.html;
-          expect(res.text).to.include('ua-parser in VCL');
-          expect(res.text).to.include(
-            `<th>ua_family</th><td>${test.family}</td>`
-          );
-          expect(res.text).to.include(
-            `<th>ua_major</th><td>${test.major}</td>`
-          );
-          expect(res.text).to.include(
-            `<th>ua_minor</th><td>${test.minor}</td>`
-          );
-          expect(res.text).to.include(
-            `<th>ua_patch</th><td>${test.patch}</td>`
-          );
-        })).timeout(5000);
+  filenames.forEach(filename => {
+    const doc = yaml.safeLoad(
+      fs.readFileSync(require.resolve(filename), 'utf8')
+    );
+    doc['test_cases'].forEach(test => {
+      it(`receives a response for ${test.user_agent_string} to be ${
+        test.family
+      } / ${test.major}`, () =>
+        chai
+          .request(uri)
+          .get('/')
+          .set('User-Agent', test.user_agent_string)
+          .then(res => {
+            //console.log(res.text);
+            expect(res).to.have.status(200);
+            expect(res).to.be.html;
+            expect(res.text).to.include('ua-parser in VCL');
+            expect(res.text).to.include(
+              `<th>ua_family</th><td>${test.family}</td>`
+            );
+            expect(res.text).to.include(
+              `<th>ua_major</th><td>${test.major}</td>`
+            );
+            expect(res.text).to.include(
+              `<th>ua_minor</th><td>${test.minor}</td>`
+            );
+            expect(res.text).to.include(
+              `<th>ua_patch</th><td>${test.patch}</td>`
+            );
+          })).timeout(5000);
+    });
   });
 } catch (e) {
   console.error(e);

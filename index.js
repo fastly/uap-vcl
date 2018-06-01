@@ -44,7 +44,7 @@ for (let i = 0; i < regexes.user_agent_parsers.length; i++) {
   } else {
     vcl += `} else if `;
   }
-  vcl += `(req.http.user-agent ~ "${part.regex}") {\n`;
+  vcl += `(req.http.user-agent ~ "${part.regex.replace('%', '%25')}") {\n`;
   if (part.family_replacement) {
     const m = part.family_replacement.match(/^(.*)\$1(.*)/);
     if (m) {
