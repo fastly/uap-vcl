@@ -18,7 +18,9 @@ it('receives an HTML response from /', () =>
     }));
 
 try {
-  const doc = yaml.safeLoad(fs.readFileSync('test_ua.yaml', 'utf8'));
+  const doc = yaml.safeLoad(
+    fs.readFileSync(require.resolve('uap-core/tests/test_ua.yaml'), 'utf8')
+  );
   doc['test_cases'].forEach(test => {
     it(`receives a response for ${test.user_agent_string} to be ${
       test.family

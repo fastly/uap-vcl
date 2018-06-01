@@ -61,7 +61,6 @@ You should have access to the Fastly GitHub organization. Then run:
 $ git clone git@github.com:fastly/uap-vcl.git
 Cloning into 'uap-vcl'...
 $ npm install
-$ npm run fetch
 $ npm run generate
 ```
 

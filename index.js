@@ -4,7 +4,9 @@ const fs = require('fs');
 // Get document, or throw exception on error
 let regexes;
 try {
-  regexes = yaml.safeLoad(fs.readFileSync('regexes.yaml', 'utf8'));
+  regexes = yaml.safeLoad(
+    fs.readFileSync(require.resolve('uap-core/regexes.yaml'), 'utf8')
+  );
 } catch (e) {
   console.error(e);
 }

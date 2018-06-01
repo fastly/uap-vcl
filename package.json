@@ -7,17 +7,17 @@
   "dependencies": {},
   "scripts": {
     "eslint": "./node_modules/eslint/bin/eslint.js index.js test/simple.js",
-    "fetch": "wget -N https://raw.githubusercontent.com/ua-parser/uap-core/master/regexes.yaml https://raw.githubusercontent.com/ua-parser/uap-core/master/tests/test_ua.yaml",
     "generate": "node index.js > uap.vcl",
     "pretty": "prettier --single-quote --write index.js test/simple.js",
     "test": "mocha --bail"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
     "chai-http": "^3.0.0",
+    "chai": "^4.1.2",
     "eslint": "^4.7.2",
     "js-yaml": "^3.10.0",
     "mocha": "^3.5.3",
-    "prettier": "^1.7.0"
+    "prettier": "^1.7.0",
+    "uap-core": "github:ua-parser/uap-core"
   }
 }
