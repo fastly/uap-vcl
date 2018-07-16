@@ -427,7 +427,7 @@ if (req.http.user-agent ~ "(ESPN)[%2520| ]+Radio/(\d+)\.(\d+)\.(\d+) CFNetwork")
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
 } else if (req.http.user-agent ~ "(SznProhlizec)/(\d+)\.(\d+)(?:\.(\d+))?") {
-  set req.http.ua_family = "Seznam prohl%u00ED%u017Ee%u010D";
+  set req.http.ua_family = "Seznam prohl%u00ed%u017ee%u010d";
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
   set req.http.ua_patch = re.group.4;

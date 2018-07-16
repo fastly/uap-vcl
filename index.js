@@ -11,29 +11,12 @@ try {
   console.error(e);
 }
 
-/**
- * Converts non-ASCII characters into their equivalent unicode escape sequence.
- * @param {String} str The string that you want to convert into ASCII and unicode escape sequences
- * @returns {String}
- */
-function escapeNonAsciiCharacters(str) {
-  return str
-    .split('')
-    .map(c => {
-      if (c.charCodeAt(0) > 127) {
-        return (
-          '%u' +
-          c
-            .charCodeAt(0)
-            .toString(16)
-            .toUpperCase()
-            .padStart(4, 0)
-        );
-      } else {
-        return c;
-      }
-    })
-    .join('');
+function escapeUnicode(str) {
+  return str.replace(/\S/g, c => {
+    return c.charCodeAt(0) > 127
+      ? `%u${('0000' + c.charCodeAt().toString(16)).slice(-4)}`
+      : c;
+  });
 }
 
 let vcl = '# uap-vcl\n';
@@ -51,7 +34,7 @@ for (let i = 0; i < regexes.user_agent_parsers.length; i++) {
     if (m) {
       vcl += `  set req.http.ua_family = "${m[1]}" + re.group.1 "${m[2]}";\n`;
     } else {
-      vcl += `  set req.http.ua_family = "${escapeNonAsciiCharacters(
+      vcl += `  set req.http.ua_family = "${escapeUnicode(
         part.family_replacement
       )}";\n`;
     }
@@ -59,21 +42,21 @@ for (let i = 0; i < regexes.user_agent_parsers.length; i++) {
     vcl += `  set req.http.ua_family = re.group.1;\n`;
   }
   if (part.v1_replacement) {
-    vcl += `  set req.http.ua_major = "${escapeNonAsciiCharacters(
+    vcl += `  set req.http.ua_major = "${escapeUnicode(
       part.v1_replacement
     )}";\n`;
   } else if (groups >= 2) {
     vcl += `  set req.http.ua_major = re.group.2;\n`;
   }
   if (part.v2_replacement) {
-    vcl += `  set req.http.ua_minor= "${escapeNonAsciiCharacters(
+    vcl += `  set req.http.ua_minor= "${escapeUnicode(
       part.v2_replacement
     )}";\n`;
   } else if (groups >= 3) {
     vcl += `  set req.http.ua_minor = re.group.3;\n`;
   }
   if (part.v3_replacement) {
-    vcl += `  set req.http.ua_patch = "${escapeNonAsciiCharacters(
+    vcl += `  set req.http.ua_patch = "${escapeUnicode(
       part.v3_replacement
     )}";\n`;
   } else if (groups >= 4) {
