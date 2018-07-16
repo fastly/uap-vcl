@@ -82,6 +82,10 @@ $ npm run test
 This code is available as open source under the terms of the
 [Apache 2 License](http://opensource.org/licenses/Apache-2.0).
 
+## Copyright
+
+Copyright 2018 Fastly, Inc.
+
 ## Future
 
 Is this useful? Let me know! Léon Brocard <<leon@fastly.com>>
