@@ -62,6 +62,10 @@ if (req.http.user-agent ~ "(ESPN)[%2520| ]+Radio/(\d+)\.(\d+)\.(\d+) CFNetwork")
   set req.http.ua_family = "Tableau";
   set req.http.ua_major = re.group.2;
   set req.http.ua_minor = re.group.3;
+} else if (req.http.user-agent ~ "(Salesforce)(?:.)\/(\d+)\.(\d?)") {
+  set req.http.ua_family = re.group.1;
+  set req.http.ua_major = re.group.2;
+  set req.http.ua_minor = re.group.3;
 } else if (req.http.user-agent ~ "(\(StatusCake\))") {
   set req.http.ua_family = "StatusCakeBot";
 } else if (req.http.user-agent ~ "(facebookexternalhit)/(\d+)\.(\d+)") {
