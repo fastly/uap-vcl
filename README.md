@@ -14,8 +14,21 @@ If you are already using a ua-parser-based parser on your origin then
 this module provides an easy migration path to moving User-Agent-based
 logic to VCL.
 
-You can view the output for your current browser at:
+You can view the output for your current browser as HTML at:
 https://uap-vcl.freetls.fastly.net/
+
+Or as JSON using:
+
+```bash
+$ curl https://uap-vcl.freetls.fastly.net/ -Haccept:application/json
+{
+  "ua_family": "curl",
+  "ua_major": "7",
+  "ua_minor": "50",
+  "ua_patch": "3"
+}
+
+```
 
 ## Installation
 
