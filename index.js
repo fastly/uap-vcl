@@ -20,6 +20,12 @@ function escapeUnicode(str) {
 }
 
 let vcl = '# uap-vcl\n';
+vcl += `
+unset req.http.ua_family;
+unset req.http.ua_major;
+unset req.http.ua_minor;
+unset req.http.ua_patch;
+`;
 for (let i = 0; i < regexes.user_agent_parsers.length; i++) {
   const part = regexes.user_agent_parsers[i];
   if (i === 0) {
@@ -66,14 +72,5 @@ for (let i = 0; i < regexes.user_agent_parsers.length; i++) {
 
 vcl += `} else {
   set req.http.ua_family = "Other";
-}
-if (!req.http.ua_major) {
-  set req.http.ua_major = "null";
-}
-if (!req.http.ua_minor) {
-  set req.http.ua_minor = "null";
-}
-if (!req.http.ua_patch) {
-  set req.http.ua_patch = "null";
 }\n`;
 console.log(vcl);

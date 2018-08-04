@@ -1,4 +1,9 @@
 # uap-vcl
+
+unset req.http.ua_family;
+unset req.http.ua_major;
+unset req.http.ua_minor;
+unset req.http.ua_patch;
 if (req.http.user-agent ~ "(ESPN)[%2520| ]+Radio/(\d+)\.(\d+)\.(\d+) CFNetwork") {
   set req.http.ua_family = re.group.1;
   set req.http.ua_major = re.group.2;
@@ -1128,14 +1133,5 @@ if (req.http.user-agent ~ "(ESPN)[%2520| ]+Radio/(\d+)\.(\d+)\.(\d+) CFNetwork")
   set req.http.ua_patch = re.group.4;
 } else {
   set req.http.ua_family = "Other";
-}
-if (!req.http.ua_major) {
-  set req.http.ua_major = "null";
-}
-if (!req.http.ua_minor) {
-  set req.http.ua_minor = "null";
-}
-if (!req.http.ua_patch) {
-  set req.http.ua_patch = "null";
 }
 
