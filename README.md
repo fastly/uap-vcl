@@ -72,7 +72,7 @@ Send a pull request, but don't forget to:
 
 ```bash
 $ npm run eslint
-$ npm run pretty
+$ npm run prettier
 $ npm run generate
 $ npm run test
 ```
