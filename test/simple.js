@@ -37,24 +37,17 @@ try {
         chai
           .request(uri)
           .get('/')
-          .set('User-Agent', test.user_agent_string)
+          .set('accept', 'application/json')
+          .set('user-agent', test.user_agent_string)
           .then(res => {
-            //console.log(res.text);
+            // console.log('text is', res.text);
+            // console.log('json is', res.body);
             expect(res).to.have.status(200);
-            expect(res).to.be.html;
-            expect(res.text).to.include('ua-parser in VCL');
-            expect(res.text).to.include(
-              `<th>ua_family</th><td>${test.family}</td>`
-            );
-            expect(res.text).to.include(
-              `<th>ua_major</th><td>${test.major}</td>`
-            );
-            expect(res.text).to.include(
-              `<th>ua_minor</th><td>${test.minor}</td>`
-            );
-            expect(res.text).to.include(
-              `<th>ua_patch</th><td>${test.patch}</td>`
-            );
+            expect(res).to.be.json;
+            expect(res.body.ua_family).to.equal(test.family);
+            expect(res.body.ua_major).to.equal(test.major);
+            expect(res.body.ua_minor).to.equal(test.minor);
+            expect(res.body.ua_patch).to.equal(test.patch);
           })).timeout(5000);
     });
   });
