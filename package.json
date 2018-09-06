@@ -12,11 +12,11 @@
     "test": "mocha --reporter tap --bail"
   },
   "devDependencies": {
-    "chai-http": "^3.0.0",
     "chai": "^4.1.2",
+    "chai-http": "^4.2.0",
     "eslint": "^4.7.2",
     "js-yaml": "^3.10.0",
-    "mocha": "^3.5.3",
+    "mocha": "^5.2.0",
     "prettier": "^1.7.0",
     "uap-core": "github:ua-parser/uap-core"
   }
