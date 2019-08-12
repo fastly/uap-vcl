@@ -31,9 +31,7 @@ try {
       fs.readFileSync(require.resolve(filename), 'utf8')
     );
     doc['test_cases'].forEach(test => {
-      it(`receives a response for ${test.user_agent_string} to be ${
-        test.family
-      } / ${test.major}`, () =>
+      it(`receives a response for ${test.user_agent_string} to be ${test.family} / ${test.major}`, () =>
         chai
           .request(uri)
           .get('/')
