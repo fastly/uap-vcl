@@ -1221,4 +1221,13 @@ if (req.http.user-agent ~ "(ESPN)[%2520| ]+Radio/(\d+)\.(\d+)\.(\d+) CFNetwork")
 } else {
   set req.http.ua_family = "Other";
 }
+if (req.http.ua_major == "") {
+  unset req.http.ua_major;
+}
+if (req.http.ua_minor == "") {
+  unset req.http.ua_minor;
+}
+if (req.http.ua_patch == "") {
+  unset req.http.ua_patch;
+}
 
