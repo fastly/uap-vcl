@@ -72,5 +72,14 @@ for (let i = 0; i < regexes.user_agent_parsers.length; i++) {
 
 vcl += `} else {
   set req.http.ua_family = "Other";
+}
+if (req.http.ua_major == "") {
+  unset req.http.ua_major;
+}
+if (req.http.ua_minor == "") {
+  unset req.http.ua_minor;
+}
+if (req.http.ua_patch == "") {
+  unset req.http.ua_patch;
 }\n`;
 console.log(vcl);
